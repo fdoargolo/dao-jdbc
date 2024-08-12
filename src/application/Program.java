@@ -52,7 +52,17 @@ public class Program {
 		seller.setName("Mariana");
 		sellerDao.update(seller);
 		System.out.println("Update completed!");
+		
+		System.out.println();
+		System.out.println("---TEST 6: seller delete (by id)----");
+		System.out.print("Enter the id: ");
+		int deleteId = scanner.nextInt();
+		sellerDao.deleteById(deleteId);
+		System.out.println("Deleted!");
+		
 		scanner.close();
+		
+		
 	}
 
 }
