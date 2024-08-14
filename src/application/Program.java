@@ -69,7 +69,7 @@ public class Program {
 		DepartmentDao depDao = DaoFactory.createDepartmentDao();
 		
 		System.out.println();
-		System.out.println("---TEST 4: department insert----");
+		System.out.println("---TEST 7: department insert----");
 		System.out.print("Enter the new Department Name:");
 		String depName = scanner.nextLine();
 		System.out.print("Enter the new Department Id:");
@@ -77,6 +77,7 @@ public class Program {
 		Department newDep = new Department(depId,depName);
 		depDao.insert(newDep);
 		System.out.println("Inserted! New dep: " + newDep.toString());
+		
 
 		
 		scanner.close();
