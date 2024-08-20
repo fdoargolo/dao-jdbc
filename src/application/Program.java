@@ -7,7 +7,6 @@ import java.util.Scanner;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.dao.SellerDao;
-import model.dao.impl.DepartmentDaoJDBC;
 import model.entities.Department;
 import model.entities.Seller;
 
@@ -73,7 +72,7 @@ public class Program {
 			System.out.println("Deleted!");
 		} else if (answer == 'D') {
 		    DepartmentDao depDao = DaoFactory.createDepartmentDao();
-	
+		    
 		    System.out.println();
 		    System.out.println("---TEST 7: department insert----");
 		    System.out.print("Enter the new Department Name:");
@@ -108,13 +107,13 @@ public class Program {
 		    System.out.print("Enter the department id find: ");
 		    depId = scanner.nextInt();
 		    System.out.println(depDao.findById(depId));
-		    System.out.println();
-		    System.out.println("---TEST 10: department findAll----");
-		    System.out.println(depDao.findAll());
-		    System.out.println();
 		    
-		} else {
-			System.out.println("You can choose just");
+		    System.out.println("---TEST 11: department findAll----");
+		    List<Department> allDepartment = depDao.findAll();
+		    for(Department x : allDepartment) {
+		    	System.out.println(x);
+		    }
+		    
 		}
 
 		scanner.close();
