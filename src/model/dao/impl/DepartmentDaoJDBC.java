@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -52,7 +53,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 			st = conn.prepareStatement(
 					"UPDATE department "
 					+ "SET Name = ? "
-					+ "WHERE Id = ?");
+					+ "WHERE Id = ?;");
 			
 			st.setString(1, obj.getName());
 			st.setInt(2, obj.getId());
@@ -73,7 +74,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"DELETE * FROM coursejdbc.department WHERE Id = ?;"
+					"DELETE FROM department WHERE Id = ?;"
 					);
 			st.setInt(1, id);
 			int rowsAffected = st.executeUpdate();
@@ -92,7 +93,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM coursejdbc.department WHERE Id = ?;"
+					"SELECT * FROM department WHERE Id = ?;"
 					);
 			st.setInt(1, id);
 			
@@ -114,7 +115,28 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
 	@Override
 	public List<Department> findAll() {
-	  return null;
+		PreparedStatement st = null;
+		List<Department> depList = new ArrayList<>();
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM department;"
+					);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				Department dep = new Department();
+				dep.setId(rs.getInt("Id"));
+				dep.setName(rs.getString("Name"));
+				depList.add(dep);
+			}
+			
+			DB.closeResultSet(rs);
+			return depList;	
+					
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 	}
 
 }
